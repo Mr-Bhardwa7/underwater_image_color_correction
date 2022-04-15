@@ -1,6 +1,6 @@
 name: underwater_image_color_correction
 description: Underwater image color correction algorithm.
-version: 0.0.1
+version: 1.0.1
 homepage: https://github.com/Mr-Bhardwa7/underwater_image_color_correction 
 
 environment:
