@@ -3,9 +3,9 @@
 
 ## Usage
 
-- ```import 'package:underwater-image-color-correction/underwater-image-color-correction.dart';```
+- ```final UnderwaterImageColorCorrection _underwaterImageColorCorrection = UnderwaterImageColorCorrection();```
 
-- ```getColorFilterMatrix(pixels, width, height)```
+- ```_underwaterImageColorCorrection.getColorFilterMatrix(pixels: pixels, width: width, height: height);```
 
 The arguments in the function is the following:
 - __pixels__.  4 channel pixel array [R0, G0, B0, A0, R1, G1, B1, A1, ...]
