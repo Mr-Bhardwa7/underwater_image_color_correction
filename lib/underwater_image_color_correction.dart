@@ -1,10 +1,12 @@
 library underwater_image_color_correction;
 
 import 'dart:math' show pi, cos, sin, min, max;
+import 'dart:typed_data';
+import 'dart:ui';
 
 class UnderwaterImageColorCorrection {
-  List getColorFilterMatrix({
-    required pixels,
+  ColorFilter getColorFilterMatrix({
+    required Uint8List pixels,
     required double width,
     required double height,
   }) {
@@ -43,21 +45,23 @@ class UnderwaterImageColorCorrection {
     // Create hisogram with new red values:
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width * 4; x += 4) {
-        double pos = x + (width * 4) * y;
+        int pos = (x + (width * 4) * y).toInt();
 
-        double red = (pixels[pos + 0]).round();
-        double green = (pixels[pos + 1]).round();
-        double blue = (pixels[pos + 2]).round();
+        int red = (pixels[pos + 0]).round();
+        int green = (pixels[pos + 1]).round();
+        int blue = (pixels[pos + 2]).round();
 
         var shifted = _hueShiftRed(
           red,
           green,
           blue,
           _hueShift,
-        ); // Use new calculated red value
-        red = shifted['r'] + shifted['g'] + shifted['b'];
+        );
+        // Use new calculated red value
+        double _sumOfShifted = shifted['r'] + shifted['g'] + shifted['b'];
+        red = _sumOfShifted.toInt();
         red = min(255, max(0, red));
-        red = red.round() as double;
+        red = red.round();
 
         _hist['r'][red] += 1;
         _hist['g'][green] += 1;
@@ -89,19 +93,20 @@ class UnderwaterImageColorCorrection {
     // Make _histogram:
     var _shifted = _hueShiftRed(1, 1, 1, _hueShift);
 
-    final _redGain = 256 / (_adjust['r']['high'] - _adjust['r']['low']);
-    final _greenGain = 256 / (_adjust['g']['high'] - _adjust['g']['low']);
-    final _blueGain = 256 / (_adjust['b']['high'] - _adjust['b']['low']);
+    final double _redGain = 256 / (_adjust['r']['high'] - _adjust['r']['low']);
+    final double _greenGain =
+        256 / (_adjust['g']['high'] - _adjust['g']['low']);
+    final double _blueGain = 256 / (_adjust['b']['high'] - _adjust['b']['low']);
 
-    final _redOffset = (-_adjust['r']['low'] / 256) * _redGain;
-    final _greenOffset = (-_adjust['g']['low'] / 256) * _greenGain;
-    final _blueOffset = (-_adjust['b']['low'] / 256) * _blueGain;
+    final double _redOffset = (-_adjust['r']['low'] / 256) * _redGain;
+    final double _greenOffset = (-_adjust['g']['low'] / 256) * _greenGain;
+    final double _blueOffset = (-_adjust['b']['low'] / 256) * _blueGain;
 
-    final _adjstRed = _shifted['r'] * _redGain;
-    final _adjstRedGreen = _shifted['g'] * _redGain;
-    final _adjstRedBlue = _shifted['b'] * _redGain * _blueMagicValue;
+    final double _adjstRed = _shifted['r'] * _redGain;
+    final double _adjstRedGreen = _shifted['g'] * _redGain;
+    final double _adjstRedBlue = _shifted['b'] * _redGain * _blueMagicValue;
 
-    return [
+    return ColorFilter.matrix(<double>[
       _adjstRed,
       _adjstRedGreen,
       _adjstRedBlue,
@@ -122,7 +127,7 @@ class UnderwaterImageColorCorrection {
       0,
       1,
       0,
-    ];
+    ]);
   }
 
   Map<String, dynamic> _calculateAverageColor(
@@ -131,7 +136,7 @@ class UnderwaterImageColorCorrection {
 
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width * 4; x += 4) {
-        double pos = x + (width * 4) * y;
+        int pos = (x + (width * 4) * y).toInt();
 
         // Sum values:
         avg['r'] = avg['r'] + pixels[pos + 1];

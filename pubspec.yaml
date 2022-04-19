@@ -1,6 +1,6 @@
 name: underwater_image_color_correction
-description: Underwater image color correction algorithm.
-version: 1.0.1
+description: Underwater image color correction algorithm which correct image color.
+version: 1.0.3
 homepage: https://github.com/Mr-Bhardwa7/underwater_image_color_correction 
 
 environment:
@@ -17,5 +17,5 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 
 flutter:
-
+  uses-material-design: true
  
