@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final UnderwaterImageColorCorrection _underwaterImageColorCorrection =
       UnderwaterImageColorCorrection();
   ColorFilter? colorFilter;
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-            ElevatedButton(
-              onPressed: _image != null ? _applyColorCorrection : null,
-              child: const Text("Convert"),
-            )
+            loading
+                ? const CircularProgressIndicator()
+                : ElevatedButton(
+                    onPressed: _image != null ? _applyColorCorrection : null,
+                    child: const Text("Convert"),
+                  )
           ],
         ),
       ),
@@ -107,6 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _applyColorCorrection() async {
+    setState(() {
+      loading = true;
+    });
     final image = uiImage.decodeImage(File(_image!.path).readAsBytesSync());
     var pixels = image!.getBytes(format: uiImage.Format.rgba);
 
@@ -119,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       colorFilter = colorFilterImage;
+      loading = false;
     });
   }
 }
