@@ -3,9 +3,11 @@
 
 ## Usage
 
-```final UnderwaterImageColorCorrection _underwaterImageColorCorrection = UnderwaterImageColorCorrection();```
+```nodejs
+    final UnderwaterImageColorCorrection _underwaterImageColorCorrection = UnderwaterImageColorCorrection();
+    _underwaterImageColorCorrection.getColorFilterMatrix(pixels: pixels, width: width, height: height);
+```
 
-```_underwaterImageColorCorrection.getColorFilterMatrix(pixels: pixels, width: width, height: height);```
 
 The arguments in the function is the following:
 - __pixels__.  4 channel pixel array [R0, G0, B0, A0, R1, G1, B1, A1, ...]
