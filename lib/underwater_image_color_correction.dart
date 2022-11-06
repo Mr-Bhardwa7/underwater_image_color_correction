@@ -139,7 +139,7 @@ class UnderwaterImageColorCorrection {
         int pos = (x + (width * 4) * y).toInt();
 
         // Sum values:
-        avg['r'] = avg['r'] + pixels[pos + 1];
+        avg['r'] = avg['r'] + pixels[pos + 0];
         avg['g'] = avg['g'] + pixels[pos + 1];
         avg['b'] = avg['b'] + pixels[pos + 2];
       }
