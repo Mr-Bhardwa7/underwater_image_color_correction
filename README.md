@@ -1,5 +1,4 @@
-# underwater-image-color-correction
-
+# 🌊 Underwater Image Color Correction
 
 ## Usage
 
@@ -48,6 +47,21 @@ This algorithm aims at doing this automatically.
 4. Find low threshold level and high threshold level.
 5. Normalize array so threshold level is equal to 0 and threshold high is equal to 255.
 6. Create color filter matrix based on the new values.
+
+## 📦 Install the Package  
+This package is available on [Pub.dev](https://pub.dev/packages/underwater_image_color_correction).  
+To use it, add the following to your `pubspec.yaml`:      
+
+```yaml
+dependencies:
+  underwater_image_color_correction: latest_version
+```
+
+Then, run:
+
+```sh
+flutter pub get
+```
 
 ## 🚀 Share the Knowledge  
 If this repository has been helpful, consider sharing it with others who might find it useful!  
