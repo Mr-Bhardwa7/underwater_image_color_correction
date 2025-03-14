@@ -49,3 +49,8 @@ This algorithm aims at doing this automatically.
 5. Normalize array so threshold level is equal to 0 and threshold high is equal to 255.
 6. Create color filter matrix based on the new values.
 
+## 🚀 Share the Knowledge  
+If this repository has been helpful, consider sharing it with others who might find it useful!  
+
+## 🔗 Built on Great Ideas  
+This project was inspired by the brilliant algorithm from [nikolajbech's repository](https://github.com/nikolajbech/underwater-image-color-correction). Huge thanks to **nikolajbech** for their amazing work!
